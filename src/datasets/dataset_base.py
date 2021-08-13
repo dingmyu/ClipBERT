@@ -141,6 +141,7 @@ def extract_frames_from_video_binary(
         sampling_strategy=sampling_strategy,
         safeguard_duration=safeguard_duration, video_max_pts=video_max_pts)
     frames, video_max_pts = decoder.decode(**decoder_kwargs)
+    # [2, 240, 320, 3], 360360
     # (T, H, W, C) -> (T, C, H, W)
     if frames is not None:
         frames = frames.permute(0, 3, 1, 2)

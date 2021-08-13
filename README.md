@@ -292,3 +292,8 @@ $PATH_TO_STORAGE/finetune $PATH_TO_STORAGE/pretrained
 horovodrun -np 2 python src/tasks/run_video_qa.py \
 --config src/configs/msrvtt_qa_base_resnet50.json \
 --output_dir $PATH_TO_STORAGE/finetune
+
+
+
+
+# /home/zfchen/code/output/render_output_vislab3/v16/render/causal_sim/sim_00000/frames/frame_00004.png
