@@ -17,7 +17,7 @@
 
 import json
 
-data_path = '.'
+data_path = './'
 des_path = data_path + 'open_end_questions.json'
 mc_path = data_path + 'multiple_choice_questions.json'
 
