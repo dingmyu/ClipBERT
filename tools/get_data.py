@@ -21,10 +21,15 @@ data_path = './'
 des_path = data_path + 'open_end_questions.json'
 mc_path = data_path + 'multiple_choice_questions.json'
 
-f = open('train.jsonl', 'w')
+f_train = open('train.jsonl', 'w')
+f_val = open('val.jsonl', 'w')
 answer_list = []
 
 question_data = json.load(open(des_path))
+
+train_list = range(4000)
+val_list = range(4000, 5000)
+
 
 for index, questions in enumerate(question_data):
     if (index + 1) % 100 == 0:
@@ -39,7 +44,10 @@ for index, questions in enumerate(question_data):
         data_item['question'] = question
         data_item['video_id'] = 'video' + str(index)
         data_item['answer_type'] = item['question_family']
-        print(json.dumps(data_item), file=f)
+        if index in train_list:
+            print(json.dumps(data_item), file=f_train)
+        if index in val_list:
+            print(json.dumps(data_item), file=f_val)
         word_set = answer.split()
         word_set.sort()
         answer_list.append('_'.join(word_set))
@@ -60,7 +68,10 @@ for index, questions in enumerate(question_data):
             data_item['answer'] = answer
             data_item['video_id'] = 'video' + str(index)
             data_item['answer_type'] = item['question_type']
-            print(json.dumps(data_item), file=f)
+            if index in train_list:
+                print(json.dumps(data_item), file=f_train)
+            if index in val_list:
+                print(json.dumps(data_item), file=f_val)
         wrong = item['wrong']
         answer = 'False'
         answer_list.append(answer)
@@ -70,9 +81,13 @@ for index, questions in enumerate(question_data):
             data_item['answer'] = answer
             data_item['video_id'] = 'video' + str(index)
             data_item['answer_type'] = item['question_type']
-            print(json.dumps(data_item), file=f)
+            if index in train_list:
+                print(json.dumps(data_item), file=f_train)
+            if index in val_list:
+                print(json.dumps(data_item), file=f_val)
 
-f.close()
+f_train.close()
+f_val.close()
 
 answer_dict = {}
 answer_vocab = list(set(answer_list))
