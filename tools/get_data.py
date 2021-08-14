@@ -40,8 +40,10 @@ for index, questions in enumerate(question_data):
         data_item = {}
         question = item['question']
         answer = item['answer']
-        words = question.replace('?', '').strip().split()
-        data_item['answer'] = answer
+        word_set = answer.split()
+        word_set.sort()
+        answer_list.append('_'.join(word_set))
+        data_item['answer'] = '_'.join(word_set)
         data_item['question'] = question
         data_item['video_id'] = 'video' + str(index)
         # data_item['answer_type'] = item['question_family']
@@ -50,9 +52,6 @@ for index, questions in enumerate(question_data):
             print(json.dumps(data_item), file=f_train)
         if index in val_list:
             print(json.dumps(data_item), file=f_val)
-        word_set = answer.split()
-        word_set.sort()
-        answer_list.append('_'.join(word_set))
         type_list.append(data_item['answer_type'])
 
 question_data = json.load(open(mc_path))
