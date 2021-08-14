@@ -286,10 +286,10 @@ mkdir -p $PATH_TO_STORAGE/vis_db  # image and video
 mkdir -p $PATH_TO_STORAGE/finetune  # finetuning results
 mkdir -p $PATH_TO_STORAGE/pretrained
 
-CUDA_VISIBLE_DEVICES=0,2 source launch_container.sh $PATH_TO_STORAGE/txt_db $PATH_TO_STORAGE/vis_db \
+CUDA_VISIBLE_DEVICES=0,1,2 source launch_container.sh $PATH_TO_STORAGE/txt_db $PATH_TO_STORAGE/vis_db \
 $PATH_TO_STORAGE/finetune $PATH_TO_STORAGE/pretrained
 
-horovodrun -np 2 python src/tasks/run_video_qa.py \
+horovodrun -np 3 python src/tasks/run_video_qa.py \
 --config src/configs/msrvtt_qa_base_resnet50.json \
 --output_dir /storage
 
