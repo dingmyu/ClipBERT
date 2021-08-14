@@ -146,7 +146,8 @@ class ClipBertVideoQADataset(ClipBertBaseDataset):
         answer_types = []
         answer_type2idx = dict(
             frameqa={"object": 0, "number": 1, "color": 2, "location": 3},
-            msrvtt_qa={k: idx for idx, k in enumerate(["what", "who", "how", "where", "when"])},
+            # msrvtt_qa={k: idx for idx, k in enumerate(["what", "who", "how", "where", "when"])},
+            msrvtt_qa={k: idx for idx, k in enumerate(['object_mass_query', 'counterfactual_multiple_choice', 'object_both_query', 'object_charge_exist', 'object_query', 'event_query', 'object_mass_exist', 'object_mass_compare1', 'event_count', 'object_mass_count', 'event_exist', 'predictive_multiple_choice', 'object_charge_count', 'object_mass_compare2', 'object_charge_query'])},
         )
 
         qid2pred_ans = {r["question_id"]: r["answer"] for r in results}
