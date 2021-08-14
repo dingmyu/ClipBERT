@@ -28,8 +28,8 @@ type_list = []
 
 question_data = json.load(open(des_path))
 
-train_list = range(4000)
-val_list = range(4000, 5000)
+train_list = range(4000) + range(6000, 10000)
+val_list = range(4000, 6000)
 
 
 for index, questions in enumerate(question_data):
