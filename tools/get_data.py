@@ -28,7 +28,7 @@ type_list = []
 
 question_data = json.load(open(des_path))
 
-train_list = range(4000) + range(6000, 10000)
+train_list = list(range(4000)) + list(range(6000, 10000))
 val_list = range(4000, 6000)
 
 
