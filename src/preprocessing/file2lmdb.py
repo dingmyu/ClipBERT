@@ -1,5 +1,5 @@
 import os
-from src.preprocessing.lmdb_utils import write_lmdb_from_id_path, \
+from lmdb_utils import write_lmdb_from_id_path, \
     read_raw_img_from_pair, read_raw_binary_from_pair
 
 
@@ -8,7 +8,7 @@ def get_abspaths_by_ext(dir_path, ext=(".jpg",)):
     Note this function does work recursively.
     """
     if not isinstance(ext, tuple):
-        ext = tuple([ext, ])
+        ext = tuple(ext)
     filepaths = [os.path.join(root, name)
                  for root, dirs, files in os.walk(dir_path)
                  for name in files
