@@ -18,6 +18,6 @@
 import os
 data_root = '/home/zfchen/code/output/render_output_vislab3/v16/render/causal_sim/'
 for index in range(10000):
+    print(index)
     os.system(f'ffmpeg -framerate 25 -loop 0 -f image2 -i {data_root}sim_{index:05d}/frames/frame_%05d.png'
-              ' -pix_fmt yuv420p -vcodec libx264 -crf 23 clevrer_video/video{index}.mp4')
-    break
+              f' -pix_fmt yuv420p -vcodec libx264 -crf 23 clevrer_video/video{index}.mp4')
