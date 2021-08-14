@@ -499,6 +499,7 @@ def start_training(cfg):
         else:
             _, loss = model.transformer.calc_loss(logits, batch["labels"])
         loss = loss.mean()
+        print(loss)
 
         running_loss(loss.item())
         # backward pass

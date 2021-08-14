@@ -24,6 +24,7 @@ mc_path = data_path + 'multiple_choice_questions.json'
 f_train = open('train.jsonl', 'w')
 f_val = open('val.jsonl', 'w')
 answer_list = []
+type_list = []
 
 question_data = json.load(open(des_path))
 
@@ -51,6 +52,7 @@ for index, questions in enumerate(question_data):
         word_set = answer.split()
         word_set.sort()
         answer_list.append('_'.join(word_set))
+        type_list.append(data_item['answer_type'])
 
 question_data = json.load(open(mc_path))
 
@@ -72,6 +74,7 @@ for index, questions in enumerate(question_data):
                 print(json.dumps(data_item), file=f_train)
             if index in val_list:
                 print(json.dumps(data_item), file=f_val)
+            type_list.append(data_item['answer_type'])
         wrong = item['wrong']
         answer = 'False'
         answer_list.append(answer)
@@ -85,7 +88,7 @@ for index, questions in enumerate(question_data):
                 print(json.dumps(data_item), file=f_train)
             if index in val_list:
                 print(json.dumps(data_item), file=f_val)
-
+            type_list.append(data_item['answer_type'])
 f_train.close()
 f_val.close()
 
@@ -94,4 +97,5 @@ answer_vocab = list(set(answer_list))
 for index, item in enumerate(answer_vocab):
     answer_dict[item] = index
 
+print(list(set(type_list)))
 json.dump(answer_dict, open('train_ans2label.json', 'w'))
