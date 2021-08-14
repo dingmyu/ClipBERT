@@ -51,4 +51,4 @@ def main_convert():
 if __name__ == '__main__':
     main_convert()
 
-# python file2lmdb.py --data_root /home/zfchen/code/ClipBERT/tools/clevrer_video/ --lmdb_save_dir clevrer_lmdb --ext mp4 --file_type video
+# python file2lmdb.py --data_root /home/zfchen/code/clipbert_data/clevrer_video/ --lmdb_save_dir clevrer_lmdb --ext mp4 --file_type video

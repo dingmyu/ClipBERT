@@ -44,7 +44,8 @@ for index, questions in enumerate(question_data):
         data_item['answer'] = answer
         data_item['question'] = question
         data_item['video_id'] = 'video' + str(index)
-        data_item['answer_type'] = item['question_family']
+        # data_item['answer_type'] = item['question_family']
+        data_item['answer_type'] = 'descriptive'
         if index in train_list:
             print(json.dumps(data_item), file=f_train)
         if index in val_list:
