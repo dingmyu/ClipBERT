@@ -23,24 +23,18 @@ for index in range(10000):
     for i in range(125):
         frame = cv2.imread(f'{data_root}sim_{index:05d}/frames/frame_%05d.png' % i, -1)
         videoWriter.write(frame[:, :, :3])
-        print(i)
     for i in range(50):
-        frame = cv2.imread(f'{data_root}sim_{index:05d}/0/frames/frame_%05d.png' % i, -1)
+        frame = cv2.imread(f'{ref_root}sim_{index:05d}/0/frames/frame_%05d.png' % i, -1)
         videoWriter.write(frame[:, :, :3])
-        print(i)
     for i in range(50):
-        frame = cv2.imread(f'{data_root}sim_{index:05d}/1/frames/frame_%05d.png' % i, -1)
+        frame = cv2.imread(f'{ref_root}sim_{index:05d}/1/frames/frame_%05d.png' % i, -1)
         videoWriter.write(frame[:, :, :3])
-        print(i)
     for i in range(50):
-        frame = cv2.imread(f'{data_root}sim_{index:05d}/2/frames/frame_%05d.png' % i, -1)
+        frame = cv2.imread(f'{ref_root}sim_{index:05d}/2/frames/frame_%05d.png' % i, -1)
         videoWriter.write(frame[:, :, :3])
-        print(i)
     for i in range(50):
-        frame = cv2.imread(f'{data_root}sim_{index:05d}/3/frames/frame_%05d.png' % i, -1)
+        frame = cv2.imread(f'{ref_root}sim_{index:05d}/3/frames/frame_%05d.png' % i, -1)
         videoWriter.write(frame[:, :, :3])
-        print(i)
     videoWriter.release()
     videoWriter = None
     print(index)
-    break
