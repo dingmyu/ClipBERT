@@ -295,5 +295,69 @@ horovodrun -np 3 python src/tasks/run_video_qa.py \
 
 
 
+# 测试方法
 
-# /home/zfchen/code/output/render_output_vislab3/v16/render/causal_sim/sim_00000/frames/frame_00004.png
+## without reference video.
+
+数据和代码在vislab5
+
+code: /disk3/zfchen/mingyu/ClipBERT
+
+video: /disk3/zfchen/mingyu/clipbert_data/vis_db/msrvtt/
+
+questions: /disk3/zfchen/mingyu/clipbert_data/txt_db/msrvtt_qa/
+
+models: /disk3/zfchen/mingyu/clipbert_data/finetune/
+
+1. 使用root账户登录，开启docker，单卡要测试一个多小时，有空闲gpu可以设置多卡
+```shell
+PATH_TO_STORAGE=/disk3/zfchen/mingyu/clipbert_data
+CUDA_VISIBLE_DEVICES=2 source launch_container.sh $PATH_TO_STORAGE/txt_db $PATH_TO_STORAGE/vis_db \
+$PATH_TO_STORAGE/finetune $PATH_TO_STORAGE/pretrained
+```
+
+2. 挂载后finetune models目录对应docker内/storage目录，进行测试
+```shell
+horovodrun -np 1 python src/tasks/run_video_qa.py \
+  --do_inference 1 --output_dir /storage \
+  --inference_split val --inference_model_step 101250 \
+  --config src/configs/msrvtt_qa_base_resnet50.json \
+  --inference_txt_db /txt/msrvtt_qa/val.jsonl \
+  --inference_img_db /img/msrvtt --inference_batch_size 16 \
+  --inference_n_clips 8
+```
+测试后log在docker内/storage目录或者docker外/disk3/zfchen/mingyu/clipbert_data/finetune/目录可以查看
+
+3. 如果要修改questions，进入 ClipBERT/tools，使用新的json运行get_data.py即可，可以得到新的val.jsonl，在test的时候指定。
+
+## with reference video.
+
+数据和代码在vislab4
+
+code: /home/zfchen/code/ClipBERT
+
+video: /home/zfchen/code/clipbert_data/vis_db_ref/msrvtt/
+
+questions: /home/zfchen/code/clipbert_data/txt_db/msrvtt_qa/
+
+models: /home/zfchen/code/clipbert_data/finetune_ref/
+
+**流程基本一样，记得挂载的video路径是vis_db_ref，model路径是finetune_ref，以及config是msrvtt_qa_base_resnet50_ref.json**
+
+1. 使用root账户登录，开启docker
+```shell
+PATH_TO_STORAGE=/home/zfchen/code/clipbert_data
+CUDA_VISIBLE_DEVICES=0,1,2 source launch_container.sh $PATH_TO_STORAGE/txt_db $PATH_TO_STORAGE/vis_db_ref \
+$PATH_TO_STORAGE/finetune_ref $PATH_TO_STORAGE/pretrained
+```
+
+2. 挂载后finetune models目录对应docker内/storage目录，进行测试
+```shell
+horovodrun -np 1 python src/tasks/run_video_qa.py \
+  --do_inference 1 --output_dir /storage \
+  --inference_split val --inference_model_step 101250 \
+  --config src/configs/msrvtt_qa_base_resnet50_ref.json \
+  --inference_txt_db /txt/msrvtt_qa/val.jsonl \
+  --inference_img_db /img/msrvtt --inference_batch_size 16 \
+  --inference_n_clips 8
+```
